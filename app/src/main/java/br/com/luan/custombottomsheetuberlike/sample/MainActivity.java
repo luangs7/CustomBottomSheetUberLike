@@ -10,6 +10,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,18 +19,23 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.luan.custombottomsheetuberlike.R;
 import br.com.luan.custombottomsheetuberlike.lib.BottomSheetBehaviorUberLike;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ItemPagerAdapter.mBottomAction {
 
 
     protected NavigationView navView;
     protected DrawerLayout drawerLayout;
     protected View contentView;
+    protected RecyclerView lista;
     private static final float END_SCALE = 0.7f;
     protected LinearLayout bottomContent;
     ItemPagerAdapter adapter;
+    RecycleBottomAdapter bottomAdapter;
     ViewPager viewPager;
 
     int[] mDrawables = {
@@ -36,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     };
 
     TextView bottomSheetTextView;
+    BottomSheetBehaviorUberLike behavior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         contentView = findViewById(R.id.content);
         bottomContent = (LinearLayout) findViewById(R.id.bottom_content);
+        lista = (RecyclerView) findViewById(R.id.list);
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -94,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          */
         CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
         View bottomSheet = coordinatorLayout.findViewById(R.id.bottom_sheet);
-        final BottomSheetBehaviorUberLike behavior = BottomSheetBehaviorUberLike.from(bottomSheet);
+        bottomSheet.setNestedScrollingEnabled(true);
+         behavior = BottomSheetBehaviorUberLike.from(bottomSheet);
         behavior.addBottomSheetCallback(new BottomSheetBehaviorUberLike.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -130,12 +140,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-        adapter = new ItemPagerAdapter(this, mDrawables);
+        adapter = new ItemPagerAdapter(this, mDrawables,this);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
 
-
         behavior.setState(BottomSheetBehaviorUberLike.STATE_COLLAPSED);
+
+        List<String> stringList = new ArrayList<>();
+        stringList.add("a");
+        stringList.add("b");
+        stringList.add("c");
+        stringList.add("d");
+        stringList.add("e");
+
+        lista.setHasFixedSize(true);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        lista.setLayoutManager(llm);
+
+        bottomAdapter = new RecycleBottomAdapter(this,stringList,false);
+        lista.setAdapter(bottomAdapter);
 
     }
 
@@ -149,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onCollapsed(){
 //        bottomContent.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 //        viewPager.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        lista.scrollToPosition(0);
         bottomContent.setBackground(getResources().getDrawable(R.drawable.rounded_card_top));
         viewPager.setBackground(getResources().getDrawable(R.drawable.rounded_card_top));
         adapter.onCollapsed(this);
@@ -165,6 +191,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
+    @Override
+    public void toDismiss() {
+        behavior.setState(BottomSheetBehaviorUberLike.STATE_COLLAPSED);
 
-
+    }
 }

@@ -54,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:fillViewport="true"
             app:behavior_peekHeight="@dimen/bottom_sheet_peek_height"
             android:id="@+id/bottom_sheet"
             app:layout_behavior="br.com.luan.custombottomsheetuberlike.lib.BottomSheetBehaviorUberLike"

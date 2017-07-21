@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import br.com.luan.custombottomsheetuberlike.R;
 
@@ -23,10 +22,18 @@ public class ItemPagerAdapter extends PagerAdapter {
     LayoutInflater mLayoutInflater;
     final int[] mItems;
 
-    public ItemPagerAdapter(Context context, int[] items) {
+    mBottomAction mListener;
+
+    public interface mBottomAction{
+        void toDismiss();
+    }
+
+
+    public ItemPagerAdapter(Context context, int[] items, mBottomAction mBottomAction) {
         this.mContext = context;
         this.mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mItems = items;
+        this.mListener = mBottomAction;
     }
 
     @Override
@@ -47,7 +54,7 @@ public class ItemPagerAdapter extends PagerAdapter {
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "click!", Toast.LENGTH_SHORT).show();
+                mListener.toDismiss();
             }
         });
         container.addView(itemView);
