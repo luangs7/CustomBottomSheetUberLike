@@ -6,13 +6,135 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="16dp"
-    android:background="@android:color/white">
+    android:id="@+id/bottom_content"
+
+    android:background="@drawable/rounded_card_top">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_card_white"
+        android:elevation="5dp"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/value"
+                android:layout_toStartOf="@+id/value"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hora marcada"
+                    android:textColor="#9B9B9B" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="05 de julho"
+                    android:textColor="#34343B"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:text="Lavagem completa"
+                    android:textColor="#3F6072" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:text="9h00"
+                android:textColor="#00B0DD"
+                android:textSize="44dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#DCDCDC"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lava-Car do Dija"
+                android:textColor="#34343B"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/endereco"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rua Maria Mazuroski, 81 - Cidade Industrial"
+                android:textColor="#3F6072" />
+
+            <TextView
+                android:id="@+id/tel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="(41) 3274-3700"
+                android:textColor="#3F6072" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_card_bottom"
+            android:elevation="1dp">
+
+            <TextView
+                android:id="@+id/cancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="CANCELAR RESERVA"
+                android:textColor="#9B9B9B" />
+        </RelativeLayout>
+    </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_sheet_peek_height"
         android:background="@color/colorPrimary"
-        android:paddingTop="8dp"
+        android:visibility="invisible"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingBottom="8dp">
@@ -62,86 +184,11 @@
     </RelativeLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:visibility="invisible"
-        android:paddingBottom="12dp"
-        android:background="@drawable/border_bottom">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <ImageButton
-                android:id="@+id/button1"
-                android:layout_width="70dp"
-                android:layout_height="60dp"
-                android:src="@android:drawable/ic_dialog_map"
-                android:layout_centerHorizontal="true"
-                android:background="?attr/selectableItemBackgroundBorderless"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BUTTON 1"
-                android:textColor="@android:color/black"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-
-
-        <LinearLayout
-            android:id="@+id/establecimiento_layout_favoritos_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp">
-
-            <ImageButton
-                android:id="@+id/button2"
-                android:layout_width="70dp"
-                android:layout_height="60dp"
-                android:src="@android:drawable/ic_dialog_info"
-                android:layout_centerHorizontal="true"
-                android:background="?attr/selectableItemBackgroundBorderless"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BUTTON 2"
-                android:textColor="@android:color/black"/>
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <ImageButton
-                android:id="@+id/establecimiento_share_button"
-                android:layout_width="70dp"
-                android:layout_height="60dp"
-                android:src="@android:drawable/ic_menu_share"
-                android:layout_centerHorizontal="true"
-                android:background="?attr/selectableItemBackgroundBorderless"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BUTTON 3"
-                android:textColor="@android:color/black"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-    </LinearLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:visibility="invisible"
         android:background="@drawable/border_bottom">
 
@@ -215,7 +262,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="42dp"
         android:layout_marginStart="16dp"
         android:visibility="invisible"
 
@@ -230,30 +277,5 @@
             android:textColor="@android:color/darker_gray"/>
     </FrameLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:visibility="invisible"
 
-        android:text="@string/dummy_text"
-        android:textSize="12sp"
-        android:textColor="@android:color/black"/>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="620dp"
-        android:visibility="invisible"
-
-        android:background="@color/colorAccent"
-        android:layout_marginTop="40dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Your remaining content here"
-            android:textColor="@android:color/white" />
-
-    </FrameLayout>
 </LinearLayout>

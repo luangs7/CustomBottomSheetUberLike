@@ -15,7 +15,7 @@ import br.com.luan.custombottomsheetuberlike.R;
 
 public class ItemPagerAdapter extends PagerAdapter {
 
-    protected View rootView;
+    protected View content;
     protected Toolbar toolbar;
     protected CollapsingToolbarLayout toolbarLayout;
     protected AppBarLayout appBar;
@@ -43,6 +43,7 @@ public class ItemPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
         toolbar = (Toolbar) itemView.findViewById(R.id.toolbar);
+        content = (View) itemView.findViewById(R.id.pagercontent);
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +59,21 @@ public class ItemPagerAdapter extends PagerAdapter {
         container.removeView((LinearLayout) object);
     }
 
-    private void initView(View rootView) {
-
+    public void onExpanded(Context context){
+        content.setBackgroundColor(context.getResources().getColor(android.R.color.black));
+        notifyDataSetChanged();
     }
+
+    public void onCollapsed(Context context){
+        content.setBackground(context.getResources().getDrawable(R.drawable.rounded_card_top));
+//        content.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
+        notifyDataSetChanged();
+    }
+
+    public void onDraggin(Context context){
+        content.setBackgroundColor(context.getResources().getColor(R.color.myblack));
+        notifyDataSetChanged();
+    }
+
+
 }

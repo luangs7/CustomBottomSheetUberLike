@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import br.com.luan.custombottomsheetuberlike.R;
@@ -26,8 +27,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected DrawerLayout drawerLayout;
     protected View contentView;
     private static final float END_SCALE = 0.7f;
-
-
+    protected LinearLayout bottomContent;
+    ItemPagerAdapter adapter;
+    ViewPager viewPager;
 
     int[] mDrawables = {
             R.drawable.cheese_3
@@ -42,10 +44,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navView = (NavigationView) findViewById(R.id.nav_view);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        contentView =  findViewById(R.id.content);
-
-
-
+        contentView = findViewById(R.id.content);
+        bottomContent = (LinearLayout) findViewById(R.id.bottom_content);
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -100,15 +100,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 switch (newState) {
                     case BottomSheetBehaviorUberLike.STATE_COLLAPSED:
+                        onCollapsed();
                         Log.d("bottomsheet-", "STATE_COLLAPSED");
                         break;
                     case BottomSheetBehaviorUberLike.STATE_DRAGGING:
+                       // onDraggin();
                         Log.d("bottomsheet-", "STATE_DRAGGING");
                         break;
                     case BottomSheetBehaviorUberLike.STATE_EXPANDED:
+                        onExpanded();
                         Log.d("bottomsheet-", "STATE_EXPANDED");
                         break;
                     case BottomSheetBehaviorUberLike.STATE_ANCHOR_POINT:
+                        onExpanded();
                         Log.d("bottomsheet-", "STATE_ANCHOR_POINT");
                         break;
                     case BottomSheetBehaviorUberLike.STATE_HIDDEN:
@@ -126,19 +130,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-
-        bottomSheetTextView = (TextView) bottomSheet.findViewById(R.id.bottom_sheet_title);
-        ItemPagerAdapter adapter = new ItemPagerAdapter(this, mDrawables);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        adapter = new ItemPagerAdapter(this, mDrawables);
+        viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
 
+
         behavior.setState(BottomSheetBehaviorUberLike.STATE_COLLAPSED);
+
+    }
+
+    public void onExpanded(){
+        bottomContent.setBackgroundColor(getResources().getColor(android.R.color.black));
+        viewPager.setBackgroundColor(getResources().getColor(android.R.color.black ));
+        adapter.onExpanded(this);
+
+    }
+
+    public void onCollapsed(){
+//        bottomContent.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+//        viewPager.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        bottomContent.setBackground(getResources().getDrawable(R.drawable.rounded_card_top));
+        viewPager.setBackground(getResources().getDrawable(R.drawable.rounded_card_top));
+        adapter.onCollapsed(this);
+    }
+
+    public void onDraggin(){
+        bottomContent.setBackgroundColor(getResources().getColor(R.color.myblack));
+        viewPager.setBackgroundColor(getResources().getColor(R.color.myblack));
+        adapter.onDraggin(this);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
     }
+
 
 
 }
